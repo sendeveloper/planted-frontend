@@ -1,3 +1,4 @@
+import { CustomerLocation, PlantationProject, PlantationProjectWithDistance } from 'types/types'
 export const calculateDistance = (
     lat1: number,
     lon1: number,
@@ -18,3 +19,29 @@ export const calculateDistance = (
 const deg2rad = (deg: number) => {
   return deg * (Math.PI / 180);
 };
+
+export function getClosestProjects(
+  customerLocation: CustomerLocation,
+  plantationProjects: PlantationProject[],
+  numProjects: number
+): PlantationProjectWithDistance[] {
+  const projectsWithDistance = plantationProjects.map((project) => {
+    const projectLocation = {
+      latitude: parseFloat(project.latitude),
+      longitude: parseFloat(project.longitude)
+    };
+
+    const distance = calculateDistance(customerLocation.latitude, customerLocation.longitude, projectLocation.latitude, projectLocation.longitude);
+
+    return {
+      ...project,
+      distance // add distance property
+    };
+  });
+
+  const sortedProjects = projectsWithDistance.sort(
+    (a, b) => a.distance - b.distance
+  );
+
+  return sortedProjects.slice(0, numProjects);
+}
