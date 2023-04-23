@@ -1,27 +1,31 @@
 import React from "react";
-import { PlantationProjectWithDistance } from "types/types";
+import { CustomerLocation, PlantationProjectWithDistance } from "types/types";
+import styles from "./styles.module.css";
 
 interface ClosestProjectsProps {
   projects: PlantationProjectWithDistance[];
+  location?: CustomerLocation
 }
 
-const ClosestProjects: React.FC<ClosestProjectsProps> = ({ projects }) => {
+const ClosestProjects: React.FC<ClosestProjectsProps> = ({ projects, location }) => {
   return (
-    <>
+    <div className={styles["closest-projects"]}>
       {projects.length > 0 && (
-        <div>
-          <h2>Closest Plantation Projects:</h2>
+        <>
+          {
+            location && <h2>{location.name}</h2>
+          }
           <ul>
             {projects.map(({id, projectName, distance}) => (
               <li key={id} data-testid={`project-${id}`}>
-                <span>{projectName}</span>
+                <span className="font-bold text-lg">{projectName}</span>
                 <span>{distance.toFixed(2)} km</span>
               </li>
             ))}
           </ul>
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

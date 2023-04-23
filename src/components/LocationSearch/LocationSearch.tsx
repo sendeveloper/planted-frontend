@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import customerLocations from "data/customerLocations.json";
 import { CustomerLocation } from "types/types";
+import styles from "./styles.module.css";
 
 interface LocationSearchProps {
   onLocationSelect: (location: CustomerLocation) => void;
@@ -29,7 +30,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onLocationSelect }) => 
   };
 
   return (
-    <div>
+    <div
+      className={styles["location-search"]}
+    >
       <input
         type="text"
         value={searchTerm}

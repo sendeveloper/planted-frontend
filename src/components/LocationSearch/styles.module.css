@@ -1,0 +1,12 @@
+.location-search {
+    @apply flex flex-col w-fit;
+    > input {
+        @apply border rounded border-2 border-neutral-500 p-2;
+    }
+    > ul {
+        @apply shadow-lg w-fit shadow-neutral-500 rounded self-end p-1;
+        > li {
+            @apply p-1 border-b-2 cursor-pointer;
+        }
+    }
+}
